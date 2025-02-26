@@ -44,7 +44,7 @@ class MacDialog(Dialog):
         return MacButton()
 
 
-# Основной класс, в котором прописана вся логика
+# Основной класс, в котором прописана вся логика работы
 class Application:
     def __init__(self):
         self.dialog = None
