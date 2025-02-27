@@ -8,10 +8,10 @@ class Button(ABC):
         pass
 
 
-# Конкретный продукт (WindowsButton)
-class WindowsButton(Button):
+# Конкретный продукт (WinButton)
+class WinButton(Button):
     def render(self, label):
-        return f'Windows-кнопка "{label}"'
+        return f'Win-кнопка "{label}"'
 
 
 # Конкретный продукт (MacButton)
@@ -32,10 +32,10 @@ class Dialog(ABC):
         pass
 
 
-# Конкретная фабрика (WindowsDialog)
-class WindowsDialog(Dialog):
+# Конкретная фабрика (WinDialog)
+class WinDialog(Dialog):
     def create_button(self) -> Button:
-        return WindowsButton()
+        return WinButton()
 
 
 # Конкретная фабрика (MacDialog)
@@ -53,7 +53,7 @@ class Application:
         config = self.get_config()
 
         if config['OS'] == 'Windows':
-            self.dialog = WindowsDialog()
+            self.dialog = WinDialog()
         elif config['OS'] == 'Mac':
             self.dialog = MacDialog()
         else:
