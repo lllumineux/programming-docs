@@ -51,8 +51,8 @@ class PageBuilder(Builder):
         return self.page
 
 
-# Конкретный второй строитель (PageGuideBuilder)
-class PageGuideBuilder(Builder):
+# Конкретный второй строитель (GuideBuilder)
+class GuideBuilder(Builder):
     def __init__(self):
         self.guide = Guide()
 
@@ -92,7 +92,7 @@ class Application:
         director.construct_main_page(page_builder)
         page = page_builder.get_result()
 
-        guide_builder = PageGuideBuilder()
+        guide_builder = GuideBuilder()
         director.construct_main_page(guide_builder)
         guide = guide_builder.get_result()
 
