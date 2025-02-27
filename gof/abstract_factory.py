@@ -8,10 +8,10 @@ class Button(ABC):
         pass
 
 
-# Конкретный первый продукт (WindowsButton)
-class WindowsButton(Button):
+# Конкретный первый продукт (WinButton)
+class WinButton(Button):
     def render(self, label):
-        return f'Windows-кнопка "{label}"'
+        return f'Win-кнопка "{label}"'
 
 
 # Конкретный первый продукт (MacButton)
@@ -20,42 +20,23 @@ class MacButton(Button):
         return f'Mac-кнопка "{label}"'
 
 
-# Интерфейс второго продукта (Text)
-class Text(ABC):
+# Интерфейс второго продукта (Select)
+class Select(ABC):
     @abstractmethod
-    def render(self, content):
+    def render(self, options):
         pass
 
 
-# Конкретный второй продукт (WindowsText)
-class WindowsText(Text):
-    def render(self, content):
-        return f'Windows-текст "{content}"'
+# Конкретный второй продукт (WinSelect)
+class WinSelect(Select):
+    def render(self, options):
+        return f'Win-селект {options}'
 
 
-# Конкретный второй продукт (MacText)
-class MacText(Text):
-    def render(self, content):
-        return f'Mac-текст "{content}"'
-
-
-# Интерфейс третьего продукта (Picture)
-class Picture(ABC):
-    @abstractmethod
-    def render(self, path):
-        pass
-
-
-# Конкретный третий продукт (WindowsPicture)
-class WindowsPicture(Picture):
-    def render(self, path):
-        return f'Windows-картинка "{path}"'
-
-
-# Конкретный третий продукт (MacPicture)
-class MacPicture(Picture):
-    def render(self, path):
-        return f'Mac-картинка "{path}"'
+# Конкретный второй продукт (MacSelect)
+class MacSelect(Select):
+    def render(self, options):
+        return f'Mac-селект {options}'
 
 
 # Базовый класс фабрики (Dialog)
@@ -63,10 +44,8 @@ class Dialog(ABC):
     def show_warning(self):
         ok_button = self.create_button()
         ok_button.render(label='Ок')
-        explanation_text = self.create_text()
-        explanation_text.render(content='Ок')
-        emoji_picture = self.create_picture()
-        emoji_picture.render(path='/emoji/warning.png')
+        choices_select = self.create_select()
+        choices_select.render(options=('Да', 'Нет'))
 
     # Фабричный метод первый
     @abstractmethod
@@ -75,25 +54,17 @@ class Dialog(ABC):
 
     # Фабричный метод второй
     @abstractmethod
-    def create_text(self) -> Text:
-        pass
-
-    # Фабричный метод третий
-    @abstractmethod
-    def create_picture(self) -> Picture:
+    def create_select(self) -> Select:
         pass
 
 
-# Конкретная фабрика (WindowsDialog)
-class WindowsDialog(Dialog):
+# Конкретная фабрика (WinDialog)
+class WinDialog(Dialog):
     def create_button(self) -> Button:
-        return WindowsButton()
+        return WinButton()
 
-    def create_text(self) -> Text:
-        return WindowsText()
-
-    def create_picture(self) -> Picture:
-        return WindowsPicture()
+    def create_select(self) -> Select:
+        return WinSelect()
 
 
 # Конкретная фабрика (MacDialog)
@@ -101,11 +72,8 @@ class MacDialog(Dialog):
     def create_button(self) -> Button:
         return MacButton()
 
-    def create_text(self) -> Text:
-        return MacText()
-
-    def create_picture(self) -> Picture:
-        return MacPicture()
+    def create_select(self) -> Select:
+        return MacSelect()
 
 
 # Основной класс, в котором прописана вся логика работы
@@ -116,8 +84,8 @@ class Application:
     def initialize(self):
         config = self.get_config()
 
-        if config['OS'] == 'Windows':
-            self.dialog = WindowsDialog()
+        if config['OS'] == 'Win':
+            self.dialog = WinDialog()
         elif config['OS'] == 'Mac':
             self.dialog = MacDialog()
         else:
