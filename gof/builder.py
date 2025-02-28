@@ -1,12 +1,12 @@
 from abc import ABC, abstractmethod
 
 
-# Первый продукт (Page)
+# Продукт #1
 class Page:
     pass
 
 
-# Второй продукт (Guide)
+# Продукт #2
 class Guide:
     pass
 
@@ -30,7 +30,7 @@ class Builder(ABC):
         pass
 
 
-# Конкретный первый строитель (PageBuilder)
+# Конкретный строитель #1
 class PageBuilder(Builder):
     def __init__(self):
         self.page = Page()
@@ -51,7 +51,7 @@ class PageBuilder(Builder):
         return self.page
 
 
-# Конкретный второй строитель (GuideBuilder)
+# Конкретный строитель #2
 class GuideBuilder(Builder):
     def __init__(self):
         self.guide = Guide()
