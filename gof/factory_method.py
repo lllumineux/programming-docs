@@ -1,26 +1,26 @@
 from abc import ABC, abstractmethod
 
 
-# Интерфейс продукта (Button)
+# Интерфейс продукта
 class Button(ABC):
     @abstractmethod
     def render(self, label):
         pass
 
 
-# Конкретный продукт (WinButton)
+# Конкретный продукт #1
 class WinButton(Button):
     def render(self, label):
         return f'Win-кнопка "{label}"'
 
 
-# Конкретный продукт (MacButton)
+# Конкретный продукт #2
 class MacButton(Button):
     def render(self, label):
         return f'Mac-кнопка "{label}"'
 
 
-# Базовый класс фабрики (Dialog)
+# Базовый класс фабрики
 class Dialog(ABC):
     def show_warning(self):
         ok_button = self.create_button()
@@ -32,13 +32,13 @@ class Dialog(ABC):
         pass
 
 
-# Конкретная фабрика (WinDialog)
+# Конкретная фабрика #1
 class WinDialog(Dialog):
     def create_button(self) -> Button:
         return WinButton()
 
 
-# Конкретная фабрика (MacDialog)
+# Конкретная фабрика #2
 class MacDialog(Dialog):
     def create_button(self) -> Button:
         return MacButton()
