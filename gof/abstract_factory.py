@@ -1,45 +1,45 @@
 from abc import ABC, abstractmethod
 
 
-# Интерфейс первого продукта (Button)
+# Интерфейс продукта (типа #1)
 class Button(ABC):
     @abstractmethod
     def render(self, label):
         pass
 
 
-# Конкретный первый продукт (WinButton)
+# Конкретный продукт #1 (типа #1)
 class WinButton(Button):
     def render(self, label):
         return f'Win-кнопка "{label}"'
 
 
-# Конкретный первый продукт (MacButton)
+# Конкретный продукт #2 (типа #1)
 class MacButton(Button):
     def render(self, label):
         return f'Mac-кнопка "{label}"'
 
 
-# Интерфейс второго продукта (Select)
+# Интерфейс продукта (типа #2)
 class Select(ABC):
     @abstractmethod
     def render(self, options):
         pass
 
 
-# Конкретный второй продукт (WinSelect)
+# Конкретный продукт #1 (типа #2)
 class WinSelect(Select):
     def render(self, options):
         return f'Win-селект {options}'
 
 
-# Конкретный второй продукт (MacSelect)
+# Конкретный продукт #2 (типа #2)
 class MacSelect(Select):
     def render(self, options):
         return f'Mac-селект {options}'
 
 
-# Базовый класс фабрики (Dialog)
+# Базовый класс фабрики
 class Dialog(ABC):
     def show_warning(self):
         ok_button = self.create_button()
@@ -47,18 +47,18 @@ class Dialog(ABC):
         choices_select = self.create_select()
         choices_select.render(options=('Да', 'Нет'))
 
-    # Фабричный метод первый
+    # Фабричный метод (типа #1)
     @abstractmethod
     def create_button(self) -> Button:
         pass
 
-    # Фабричный метод второй
+    # Фабричный метод (типа #2)
     @abstractmethod
     def create_select(self) -> Select:
         pass
 
 
-# Конкретная фабрика (WinDialog)
+# Конкретная фабрика #1
 class WinDialog(Dialog):
     def create_button(self) -> Button:
         return WinButton()
@@ -67,7 +67,7 @@ class WinDialog(Dialog):
         return WinSelect()
 
 
-# Конкретная фабрика (MacDialog)
+# Конкретная фабрика #2
 class MacDialog(Dialog):
     def create_button(self) -> Button:
         return MacButton()
