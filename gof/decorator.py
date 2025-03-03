@@ -44,7 +44,9 @@ class PermissionDecorator(NotificationDecorator):
 # Клиентский код
 class Application:
     def main(self):
+        # Оборачивают друг друга, расширяя функционал
         notif = EmailNotification()
         logging_notif = LoggingDecorator(notif)
         perm_notif = PermissionDecorator(logging_notif, role='admin')
+        
         perm_notif.send({'text': 'Test message.', 'role': 'admin'})
