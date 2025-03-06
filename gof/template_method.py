@@ -63,7 +63,7 @@ class DatabaseDataReader(DataReader):
 
 
 # Клиентский код
-if __name__ == '__main__':
+def main():
     # Можем читать данные из разных источников, реализуя лишь конкретные шаги, а не весь алгоритм
     file_reader = FileDataReader()
     file_reader.read_data()
