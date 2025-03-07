@@ -1,21 +1,6 @@
 from abc import ABC, abstractmethod
 
 
-# Интерфейс посетителя
-class Visitor(ABC):
-    @abstractmethod
-    def visit_circle(self, c):
-        pass
-
-    @abstractmethod
-    def visit_rectangle(self, r):
-        pass
-
-    @abstractmethod
-    def visit_compound_shape(self, cs):
-        pass
-
-
 # Интерфейс элемента
 class Shape(ABC):
     @abstractmethod
@@ -23,7 +8,7 @@ class Shape(ABC):
         pass
 
     @abstractmethod
-    def accept(self, visitor: Visitor):
+    def accept(self, visitor):
         pass
 
 
@@ -32,8 +17,8 @@ class Circle(Shape):
     def move(self, x: int, y: int):
         pass  # ...
 
-    def accept(self, v):
-        v.visit_circle(self)
+    def accept(self, visitor):
+        visitor.visit_circle(self)
 
 
 # Конкретный элемент #2
@@ -41,8 +26,8 @@ class Rectangle(Shape):
     def move(self, x: int, y: int):
         pass  # ...
 
-    def accept(self, v):
-        v.visit_rectangle(self)
+    def accept(self, visitor):
+        visitor.visit_rectangle(self)
 
 
 # Конкретный элемент #3
@@ -50,8 +35,23 @@ class CompoundShape(Shape):
     def move(self, x: int, y: int):
         pass  # ...
 
-    def accept(self, v):
-        v.visit_compound_shape(self)
+    def accept(self, visitor):
+        visitor.visit_compound_shape(self)
+
+
+# Интерфейс посетителя
+class Visitor(ABC):
+    @abstractmethod
+    def visit_circle(self, circle: Circle):
+        pass
+
+    @abstractmethod
+    def visit_rectangle(self, rectangle: Rectangle):
+        pass
+
+    @abstractmethod
+    def visit_compound_shape(self, compound_shape: CompoundShape):
+        pass
 
 
 # Конкретный посетитель #1
